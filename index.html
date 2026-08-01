@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión</title>
+  <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+  <div class="login-container">
+    <form class="login-box" id="loginForm">
+      <h1>Iniciar sesión</h1>
+
+      <label for="user">Usuario</label>
+      <input type="text" id="user" autocomplete="off" required>
+
+      <label for="pass">Contraseña</label>
+      <input type="password" id="pass" required>
+
+      <button type="submit">Entrar</button>
+
+      <p class="error" id="error"></p>
+    </form>
+  </div>
+
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-heart"></div>
+    <h2 class="welcome-text">Bienvenida, Juanita</h2>
+    <p class="welcome-sub">Tienes algo esperándote...</p>
+  </div>
+
+  <script>
+    const VALID_USER = "aa._.rei";
+    const VALID_PASS = "26012005";
+
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('error');
+    const overlay = document.getElementById('welcomeOverlay');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('user').value.trim();
+      const pass = document.getElementById('pass').value.trim();
+
+      if (user === VALID_USER && pass === VALID_PASS) {
+        overlay.classList.add('show');
+        setTimeout(() => {
+          window.location.href = "carta.html";
+        }, 2600);
+      } else {
+        errorMsg.textContent = "Usuario o contraseña incorrectos.";
+        form.classList.add('shake');
+        setTimeout(() => form.classList.remove('shake'), 400);
+      }
+    });
+
+    // Efecto parallax: el fondo se mueve levemente según la posición del mouse
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+    });
+  </script>
+</body>
+</html>
